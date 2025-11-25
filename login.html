@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — SpeakSmart</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="SpeakSmart.png" />
+</head>
+<body>
+  <div class="header">
+    <div class="brand">
+      <div class="logo"><a href="index.html"><img src="SpeakSmart.png" alt="SpeakSmart logo" width="58"></a></div>
+      <div>
+        <div class="site-title">English Lab</div>
+        <div class="small">Login to track progress</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container center" style="padding-top:40px">
+    <div class="panel" style="max-width:520px;width:100%;">
+      <h2>Welcome</h2>
+      <p class="small">Enter a username to get started. This login is local only (no password).</p>
+
+      <label>Username</label>
+      <input type="text" id="username" placeholder="e.g. sara_learner" />
+
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn primary" id="loginBtn">Start</button>
+        <button class="btn" id="guestBtn">Continue as Guest</button>
+        <button class="btn" id="darkToggle">Toggle Dark</button>
+      </div>
+
+      <p class="small" style="margin-top:12px">Tip: your progress is stored in your browser's localStorage.</p>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script>
+  document.getElementById('loginBtn').onclick = ()=>{
+    const u = document.getElementById('username').value.trim();
+    if(!u){ alert('Enter a username'); return; }
+    if(login(u)){
+      addToLeaderboard(u, appState.points);
+      window.location.href = 'index.html';
+    } else alert('Login failed');
+  };
+  document.getElementById('guestBtn').onclick = ()=>{
+    login('Guest_'+Math.floor(Math.random()*9000+1000));
+    window.location.href = 'index.html';
+  };
+  document.getElementById('darkToggle').onclick = toggleDark;
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Leaderboard — SpeakSmart</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="icon" href="SpeakSmart.png" />
+</head>
+<body>
+  <div class="header">
+    <div class="brand">
+      <div class="logo"><a href="index.html"><img src="SpeakSmart.png" alt="SpeakSmart logo" width="58"></a></div>
+      <div><div class="site-title">Leaderboard</div><div class="small">Top learners (local)</div></div>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="location.href='index.html'">Back</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <h2>Top Learners</h2>
+      <div id="lbList" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script>
+  function renderLB(){
+    const lb = getLeaderboard();
+    const el = document.getElementById('lbList');
+    if(lb.length === 0){ el.innerHTML = '<div class="small">No entries yet — start practicing!</div>'; return; }
+    el.innerHTML = '<ol style="padding-left:18px">'+ lb.map(x=> `<li style="margin:8px 0"><strong>${x.username}</strong> — ${x.points} pts <span class="small">(${new Date(x.updatedAt).toLocaleDateString()})</span></li>`).join('') + '</ol>';
+  }
+  renderLB();
+</script>
+</body>
+</html>

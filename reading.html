@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Reading — SpeakSmart</title>
+<link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="SpeakSmart.png" />
+
+</head>
+<body>
+  <div class="header">
+    <div class="brand"><div class="logo"><a href="index.html"><img src="SpeakSmart.png" alt="SpeakSmart logo" width="58"></a></div>
+<div><div class="site-title">Reading</div><div class="small">Passages & flashcards</div></div></div>
+    <div class="controls"><button class="btn" onclick="location.href='index.html'">Back</button></div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <h2>Reading Passage</h2>
+      <div id="passage" class="small"></div>
+    </div>
+
+    <div class="panel" style="margin-top:12px">
+      <h2>Flashcards</h2>
+      <div class="flashcard" id="flashcard">
+        <div class="inner" id="flashInner">
+          <div class="side front" id="frontSide"></div>
+          <div class="side back" id="backSide"></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn" id="prevCard">Prev</button>
+        <button class="btn primary" id="knownBtn">Known ✓</button>
+        <button class="btn" id="nextCard">Next</button>
+      </div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script src="reading.js"></script>
+</body>
+</html>

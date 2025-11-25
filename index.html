@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SpeakSmart — Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="SpeakSmart.png" />
+</head>
+<body>
+  <div class="particles">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+  <div class="header">
+    <div class="brand">
+      <div class="logo"><a href="index.html"><img src="SpeakSmart.png" alt="SpeakSmart logo" width="58"></a></div>
+      <div>
+        <div class="site-title" style="cursor: pointer;">SpeakSmart</div>
+        <div class="small">Practice <a href="listening.html">Listening</a> • <a href="reading.html">Reading</a> • <a href="writing.html">Writing</a> <a href="Speaking"></a></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="small" id="userDisplay"></div>
+      <button class="btn" onclick="toggleDark()">Dark</button>
+      <button class="btn" onclick="location.href='leaderboard.html'">Leaderboard</button>
+      <button class="btn" onclick="if(confirm('Reset all progress?')) { localStorage.removeItem('english_lab_app_v2'); location.reload(); }">Reset</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="grid">
+      <div class="main-panel">
+        <div class="panel">
+          <h2>Dashboard</h2>
+          <div class="card-grid" style="margin-top:12px">
+            <div class="card" data-nav="speaking.html">
+              <h3>🗣️ Speaking</h3>
+              <p>Practice pronunciation using microphone and TTS. (Click to open)</p>
+            </div>
+            <div class="card" data-nav="writing.html">
+              <h3>✍️ Writing</h3>
+              <p>Prompts, instant feedback, and scoring.</p>
+            </div>
+            <div class="card" data-nav="listening.html">
+              <h3>🎧 Listening</h3>
+              <p>Audio clips with comprehension questions.</p>
+            </div>
+            <div class="card" data-nav="reading.html">
+              <h3>📚 Reading</h3>
+              <p>Passages, flashcards, and vocabulary review.</p>
+            </div>
+            <div class="card" data-nav="quiz.html">
+              <h3>🧠 Quiz Bank</h3>
+              <p>Multi-page quizzes and progress-based selection.</p>
+            </div>
+            <div class="card" data-nav="leaderboard.html">
+              <h3>🏆 Leaderboard</h3>
+              <p>See top learners (local leaderboard).</p>
+            </div>
+            <div class="card" data-nav="index.html">
+              <h3>⚙️ Settings</h3>
+              <p>Reset progress, toggle dark mode, and export data.</p>
+            </div>
+            <div class="card" data-nav="login.html">
+              <h3>👤 Account</h3>
+              <p>Login or switch user.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Quick Actions</h3>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn primary" onclick="location.href='speaking.html'">Start Speaking</button>
+            <button class="btn" onclick="location.href='reading.html'">Flashcards</button>
+            <button class="btn" onclick="location.href='quiz.html'">Take a Quiz</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="panel">
+          <h3>Your Progress</h3>
+          <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
+            <div style="flex:1">
+              <div class="small">Level progress</div>
+              <div class="progress-bar" aria-hidden><div id="progressFill" class="progress-fill"></div></div>
+            </div>
+            <div style="text-align:right;min-width:72px">
+              <div id="ptsDisplay" style="font-weight:800">0 pts</div>
+              <div id="levelDisplay" class="small">Level 1</div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="small">Badges</div>
+            <div id="badgeDisplay" style="margin-top:6px">None yet</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div class="small">Quick stats</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <div style="flex:1;background:rgba(255,255,255,0.6);padding:8px;border-radius:8px;text-align:center">
+                <div id="exCount">0</div><div class="small">Exercises</div>
+              </div>
+              <div style="flex:1;background:rgba(255,255,255,0.6);padding:8px;border-radius:8px;text-align:center">
+                <div id="accuracy">0%</div><div class="small">Accuracy</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <button class="btn" onclick="exportProgress()">Export Progress</button>
+            <button class="btn" onclick="importProgress()">Import Progress</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script>
+  // small UI init
+  (function(){
+    const userEl = document.getElementById('userDisplay');
+    if(appState.user) userEl.textContent = appState.user.username;
+    else userEl.innerHTML = '<a href="login.html">Login</a>';
+    document.getElementById('exCount').textContent = appState.exercisesCompleted;
+    document.getElementById('accuracy').textContent = (appState.attempts ? Math.round((appState.accuracySum / appState.attempts)*100) : 0) + '%';
+    updateLocalUI();
+  })();
+
+  function exportProgress(){
+    const data = JSON.stringify(appState, null, 2);
+    const blob = new Blob([data], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'english_lab_progress.json'; document.body.appendChild(a); a.click();
+    a.remove(); URL.revokeObjectURL(url);
+  }
+  function importProgress(){
+    const inp = document.createElement('input'); inp.type='file'; inp.accept='application/json';
+    inp.onchange = ()=> {
+      const f = inp.files[0];
+      const reader = new FileReader();
+      reader.onload = ()=> {
+        try{
+          const obj = JSON.parse(reader.result);
+          appState = Object.assign(defaultState(), obj);
+          saveState(appState);
+          updateLocalUI();
+          alert('Imported progress');
+        }catch(e){ alert('Invalid file'); }
+      };
+      reader.readAsText(f);
+    };
+    inp.click();
+  }
+</script>
+</body>
+</html>

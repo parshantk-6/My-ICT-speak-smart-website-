@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Writing — English Lab</title>
+<link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="SpeakSmart.png" />
+
+</head>
+<body>
+  <div class="header">
+    <div class="brand"><div class="logo"><a href="index.html"><img src="SpeakSmart.png" alt="SpeakSmart logo" width="58"></a></div><div><div class="site-title">Writing</div><div class="small">Prompts & feedback</div></div></div>
+    <div class="controls"><button class="btn" onclick="location.href='index.html'">Back</button></div>
+  </div>
+
+  <div class="container">
+    <div class="panel">
+      <h2>Writing Prompts</h2>
+      <div id="promptArea" class="small"></div>
+      <textarea id="writeBox" rows="8" style="margin-top:12px"></textarea>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn primary" id="checkBtn">Check & Score</button>
+        <button class="btn" id="newPrompt">New Prompt</button>
+        <button class="btn" id="ttsBtn">🔊 Read Prompt</button>
+      </div>
+
+      <div id="feedback" style="margin-top:12px"></div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script src="writing.js"></script>
+</body>
+</html>

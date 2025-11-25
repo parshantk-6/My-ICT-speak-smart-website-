@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Speaking Practice — SpeakSmart</title>
+<link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="SpeakSmart.png" />
+
+</head>
+<body>
+  <div class="header">
+    <div class="brand"><div class="logo"><a href="index.html"><img src="SpeakSmart.png" alt="SpeakSmart logo" width="58"></a></div><div><div class="site-title">Speaking</div><div class="small">Practice pronunciation</div></div></div>
+    <div class="controls"><button class="btn" onclick="location.href='index.html'">Back</button></div>
+  </div>
+
+  <div class="container">
+    <div class="panel main-panel">
+      <h2>Speaking Practice</h2>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1">
+          <div class="small">Phrase</div>
+          <div id="phraseText" style="font-weight:800;font-size:1.2rem;margin-top:6px"></div>
+          <div class="small text-muted" style="margin-top:6px">Click "Listen" to hear it, then press Mic and speak. Recognition works best in Chrome/Edge.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn primary" id="listenBtn">🔊 Listen (TTS)</button>
+          <button class="btn" id="newBtn">↺ New Phrase</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:12px;align-items:center">
+        <button id="micBtn" class="btn" style="width:84px;height:84px;border-radius:999px;font-size:22px">🎤</button>
+        <div style="flex:1">
+          <div class="small">Recognition</div>
+          <div id="resultBox" style="padding:10px;border-radius:10px;background:var(--glass-bg);margin-top:6px;min-height:60px"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn" id="giveUp">Skip (+5 pts)</button>
+        <button class="btn" id="savePhrase">Save Phrase (for review)</button>
+      </div>
+
+      <div style="margin-top:18px" class="panel">
+        <h3>Practice History (local)</h3>
+        <div id="historyList" class="small"></div>
+      </div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+<script src="speaking.js"></script>
+</body>
+</html>
